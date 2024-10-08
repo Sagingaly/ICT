@@ -1,0 +1,143 @@
+SELECT * FROM job_positions;
+SELECT * FROM locations ORDER BY location_id DESC;
+SELECT sales_order.order_id, customers.customer_name 
+FROM sales_order 
+JOIN customers ON sales_order.customer_id = customers.customer_id;
+SELECT products.product_name, prices.list_price 
+FROM products 
+LEFT JOIN prices ON products.product_id = prices.product_id;
+SELECT sales_order.order_id, customers.customer_name 
+FROM sales_order 
+JOIN customers ON sales_order.customer_id = customers.customer_id;
+SELECT products.product_name, prices.list_price 
+FROM products 
+LEFT JOIN prices ON products.product_id = prices.product_id;
+
+
+-- Удаление всех таблиц, если они существуют
+DROP TABLE IF EXISTS sales_order;
+DROP TABLE IF EXISTS customers;
+DROP TABLE IF EXISTS prices;
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS employees;
+DROP TABLE IF EXISTS departments;
+DROP TABLE IF EXISTS locations;
+DROP TABLE IF EXISTS job_positions;
+мнаны биринши саласын сосн компилировать етесн
+
+
+-- Создание таблицы job_positions (Должности)
+CREATE TABLE job_positions (
+    position_id INT PRIMARY KEY,
+    position_name VARCHAR(255)
+);
+
+-- Создание таблицы locations (Локации)
+CREATE TABLE locations (
+    location_id INT PRIMARY KEY,
+    location_name VARCHAR(255)
+);
+
+-- Создание таблицы customers (Клиенты)
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    customer_name VARCHAR(255)
+);
+
+-- Создание таблицы sales_order (Заказы) с внешним ключом для customers
+CREATE TABLE sales_order (
+    order_id INT PRIMARY KEY,
+    customer_id INT,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+
+-- Создание таблицы products (Продукты)
+CREATE TABLE products (
+    product_id INT PRIMARY KEY,
+    product_name VARCHAR(255)
+);
+
+-- Создание таблицы prices (Цены) с внешним ключом для products
+CREATE TABLE prices (
+    product_id INT,
+    list_price DECIMAL,
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
+-- Создание таблицы employees (Сотрудники)
+CREATE TABLE employees (
+    employee_id INT PRIMARY KEY,
+    employee_name VARCHAR(255),
+    job_title VARCHAR(255)
+);
+
+-- Создание таблицы departments (Отделы)
+CREATE TABLE departments (
+    department_id INT PRIMARY KEY,
+    department_name VARCHAR(255)
+);
+
+
+-- Вставка данных в таблицу job_positions (Должности)
+INSERT INTO job_positions (position_id, position_name) VALUES 
+(1, 'Менеджер'),
+(2, 'Разработчик'),
+(3, 'Дизайнер'),
+(4, 'Продажи'),
+(5, 'HR');
+
+-- Вставка данных в таблицу locations (Локации)
+INSERT INTO locations (location_id, location_name) VALUES 
+(1, 'Москва'),
+(2, 'Санкт-Петербург'),
+(3, 'Новосибирск'),
+(4, 'Екатеринбург'),
+(5, 'Казань');
+
+-- Вставка данных в таблицу customers (Клиенты)
+INSERT INTO customers (customer_id, customer_name) VALUES 
+(1, 'Клиент А'),
+(2, 'Клиент Б'),
+(3, 'Клиент В'),
+(4, 'Клиент Г'),
+(5, 'Клиент Д');
+
+-- Вставка данных в таблицу sales_order (Заказы)
+INSERT INTO sales_order (order_id, customer_id) VALUES 
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5);
+
+-- Вставка данных в таблицу products (Продукты)
+INSERT INTO products (product_id, product_name) VALUES 
+(1, 'Продукт А'),
+(2, 'Продукт Б'),
+(3, 'Продукт В'),
+(4, 'Продукт Г'),
+(5, 'Продукт Д');
+
+-- Вставка данных в таблицу prices (Цены)
+INSERT INTO prices (product_id, list_price) VALUES 
+(1, 100.00),
+(2, 200.00),
+(3, 300.00),
+(4, 400.00),
+(5, 500.00);
+
+-- Вставка данных в таблицу employees (Сотрудники)
+INSERT INTO employees (employee_id, employee_name, job_title) VALUES 
+(1, 'Иван', 'Менеджер'),
+(2, 'Анна', 'Разработчик'),
+(3, 'Петр', 'Дизайнер'),
+(4, 'Мария', 'Продажи'),
+(5, 'Ольга', 'HR');
+
+-- Вставка данных в таблицу departments (Отделы)
+INSERT INTO departments (department_id, department_name) VALUES 
+(1, 'ИТ'),
+(2, 'HR'),
+(3, 'Продажи'),
+(4, 'Финансы'),
+(5, 'Маркетинг');
